@@ -41,7 +41,8 @@ Ce projet se concentre sur l'application de la théorie des graphes dans le doma
 
 ## Travaux Pratiques (TPs)
 
-- **[TP1](./TP1/)** : Ce TP abordera la construction, la coloration de graphes, les graphes d'états, et une application pratique.
+- **[TP1](./TP1/README.md)** : Ce TP abordera la construction, la coloration de graphes, les graphes d'états, et une application pratique.
+- **[TP2](./TP2/README.md)** : Ce TP abordera des algorithmes de parcours de graphe : BFS, DFS, cycles Eulériens.
 
 ## Crédits
 

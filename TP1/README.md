@@ -50,8 +50,16 @@ Les exercices sont implémentés en C++, en utilisant des structures de données
 
 2. **Compiler le code** :
     ```bash
-    make
-    ````
+    cd build
+    cmake . .
+    cmake --build .
+    ```
+
+3. **Lancer le code** :
+    ```bash
+    #Linux/MacOs
+    ./TP1 [path/to/file]
+    ```
 
 ## Crédits
 

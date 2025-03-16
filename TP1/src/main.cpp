@@ -6,6 +6,7 @@
 #include <vector>
 #include <algorithm>
 #include <cmath>
+#include "paths.h"
 
 /// Retourne la norme d'un vecteur : utilisé par le calcule de distance entre stations
 inline double norme(double vx, double vy)
@@ -179,12 +180,15 @@ class Reseau
 };
 
 
-int main()
+int main(int argc, char* argv[])
 {
+    // définition d'un fichier par défaut
+    std::filesystem::path file= argc > 1 ? argv[1] : "../reseau3.txt"; 
+
     try
     {
         /// Chargement du rseau et affichage avant coloration
-        Reseau reseau("reseau3.txt");
+        Reseau reseau(file);
         std::cout << reseau;
 
         /// Coloration algorithme "naf" et affichage

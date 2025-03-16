@@ -12,7 +12,7 @@ Ce dépôt contient les exercices et les implémentations en C++ pour le TD/TP 1
 
 ## Introduction
 
-Voir présentation du suject [ici](../README.md).
+Voir présentation du sujet [ici](../README.md).
 
 ## Exercices
 
@@ -45,8 +45,8 @@ Les exercices sont implémentés en C++, en utilisant des structures de données
 
 1. **Cloner le Dépôt** :
    ```bash
-   git clone https://github.com/votre-utilisateur/theorie-des-graphes-tp1.git
-   cd theorie-des-graphes-tp1
+   git clone https://github.com/polocto/Theorie-des-graphes.git
+   cd Theorie-des-graphes/TP1
 
 2. **Compiler le code** :
     ```bash

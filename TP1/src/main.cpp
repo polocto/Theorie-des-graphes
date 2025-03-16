@@ -84,8 +84,8 @@ class Station
             return true;
         }
 
-        /// Surcharge de l'oprateur d'insertion vers un flot de sortie
-        /// c'est la "mthode d'affichage" des objets de type Station
+        /// Surcharge de l'opérateur d'insertion vers un flot de sortie
+        /// c'est la "méthode d'affichage" des objets de type Station
         friend std::ostream& operator<<(std::ostream& out, const Station& s)
         {
             out << "id=" << std::setw(2) << s.m_id << "  x=" << s.m_x << "  y=" << s.m_y << "  freq=" << s.m_frequence << "  Adjacents=";
@@ -97,16 +97,16 @@ class Station
 
 };
 
-/// La classe Reseau reprsente un graphe dans son ensemble
+/// La classe Reseau représente un graphe dans son ensemble
 class Reseau
 {
     private:
-        /// Le rseau est constitu d'une collection de stations
+        /// Le rseau est constitué d'une collection de stations
         std::vector<Station*> m_stations;
 
     public:
-        /// La construction du rseau se fait à partir d'un fichier
-        /// dont le nom est pass en paramètre
+        /// La construction du réseau se fait à partir d'un fichier
+        /// dont le nom est passé en paramètre
         Reseau(const std::string nomFichier)
         {
             std::ifstream ifs(nomFichier);
@@ -130,8 +130,8 @@ class Reseau
                 s->determineAdjacents(m_stations, dmin);
         }
 
-        /// Destructeur du rseau. Les stations ont t alloues dynamiquement
-        /// lors de la cration d'une instance reseau, le rseau est responsable de leur libration
+        /// Destructeur du réseau. Les stations ont été alloues dynamiquement
+        /// lors de la création d'une instance reseau, le réseau est responsable de leur libération
         ~Reseau()
         {
             for (Station* s : m_stations)
@@ -144,7 +144,7 @@ class Reseau
             return (int)m_stations.size();
         }
 
-        /// Remet toutes les frquences des stations à 0 (non affectes)
+        /// Remet toutes les fréquences des stations à 0 (non affectes)
         void resetFrequences()
         {
             for (Station* s : m_stations)
@@ -152,7 +152,7 @@ class Reseau
         }
 
         /// Surcharge de l'oprateur d'insertion vers un flot de sortie
-        /// c'est la "mthode d'affichage" des objets de type Reseau
+        /// c'est la "méthode d'affichage" des objets de type Reseau
         friend std::ostream& operator<<(std::ostream& out, const Reseau& r)
         {
             out << "Reseau d'ordre " << r.getOrdre() << " :" << std::endl;
@@ -179,11 +179,24 @@ class Reseau
 
         void attribuerWelshPowell(int& nbFrequences)
         {
-           /// A COMPLETER
+           std::sort(m_stations.begin(),m_stations.end(),[](Station* a,Station* b){return a->getDegre() < b->getDegre();});
+
+           int colored = 0;
+           int frequence = 0;
+            while(colored!=m_stations.size()){
+                frequence++;
+                for(Station* s:m_stations){
+                    if(s->getFrequence()==0 && s->testFrequence(frequence)){
+                        s->setFrequence(frequence);
+                        colored++;
+                    }
+                }
+           }
+           nbFrequences=frequence;
         }
         /// ************* FIN CODE ETUDIANT *************
 
-        /// Mthode "optimale", dtermination du nombre chromatique.
+        /// Méthode "optimale", dtermination du nombre chromatique.
         /// Voir implmentation après le main
         void attribuerSystematique(int& nbFrequences);
 };
@@ -196,24 +209,27 @@ int main(int argc, char* argv[])
 
     try
     {
-        /// Chargement du rseau et affichage avant coloration
+        /// Chargement du réseau et affichage avant coloration
         Reseau reseau(file);
         std::cout << reseau;
 
         /// Coloration algorithme "naïf" et affichage
-        int nbFreqNaif;
+        int nbFreqNaif=0;
         reseau.attribuerNaif(nbFreqNaif);
         std::cout << "Naif : " << nbFreqNaif << " frequences utilisees" << std::endl;
         std::cout << reseau;
 
+        reseau.resetFrequences();
+
         /// Coloration algorithme "Welsh et Powell" et affichage
-        /*int nbFreqWP;
+        int nbFreqWP=0;
         reseau.attribuerWelshPowell(nbFreqWP);
         std::cout << "Welsh & Powell : " << nbFreqWP << " frequences utilisees" << std::endl;
-        std::cout << reseau;*/
+        std::cout << reseau;
 
+        reseau.resetFrequences();
         /// Coloration algorithme "Systmatique" et affichage
-        int nbFreqSyst;
+        int nbFreqSyst=0;
         reseau.attribuerSystematique(nbFreqSyst);
         std::cout << "Nombre chromatique : " << nbFreqSyst << " frequences utilisees (optimal)" << std::endl;
         std::cout << reseau;
@@ -244,7 +260,7 @@ void Reseau::attribuerSystematique(int& nbFrequences)
         ++nbFrequences;
 
         // On va tester les "nbFrequences puissance ordre" combinaisons
-        // Exemple : pour rpartir 3 couleurs sur 4 sommets il y a 3^4 = 81 cas à tudier
+        // Exemple : pour répartir 3 couleurs sur 4 sommets il y a 3^4 = 81 cas à étudier
         // Ceci est quivalent à un comptage en base 3 sur 4 chiffres : 0000 0001 0002 0010 0011 0012 0020 ...
         // On va tester les affectations correspondantes              : 1111 1112 1113 1121 1122 1123 1131 ...
         int nbCas = std::pow(nbFrequences, getOrdre());

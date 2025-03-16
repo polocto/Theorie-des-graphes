@@ -107,7 +107,7 @@ class Reseau
     public:
         /// La construction du rseau se fait à partir d'un fichier
         /// dont le nom est pass en paramètre
-        Reseau(std::string nomFichier)
+        Reseau(const std::string nomFichier)
         {
             std::ifstream ifs(nomFichier);
             if (!ifs)
@@ -165,7 +165,16 @@ class Reseau
         /// ************* CODE ETUDIANT *************
         void attribuerNaif(int& nbFrequences)
         {
-           /// A COMPLETER
+           for(Station* s : m_stations){
+            int frequence = 0;
+            do{
+                frequence++;
+            }while(!s->testFrequence(frequence));
+            s->setFrequence(frequence);
+            if(frequence>nbFrequences){
+                nbFrequences=frequence;
+            }
+           }
         }
 
         void attribuerWelshPowell(int& nbFrequences)
@@ -191,11 +200,11 @@ int main(int argc, char* argv[])
         Reseau reseau(file);
         std::cout << reseau;
 
-        /// Coloration algorithme "naf" et affichage
-        /*int nbFreqNaif;
+        /// Coloration algorithme "naïf" et affichage
+        int nbFreqNaif;
         reseau.attribuerNaif(nbFreqNaif);
         std::cout << "Naif : " << nbFreqNaif << " frequences utilisees" << std::endl;
-        std::cout << reseau;*/
+        std::cout << reseau;
 
         /// Coloration algorithme "Welsh et Powell" et affichage
         /*int nbFreqWP;

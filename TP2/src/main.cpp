@@ -1,6 +1,8 @@
 #include <iostream>
+#include "graphs/graph.hpp"
 
 int main(int argc, char* argv[]){
-    std::cout<<"Hello World!!"<<std::endl;
+    Graph* reseau = new Graph("../reseau.txt");
+    std::cout << *reseau << std::endl;
     return 0;
 }

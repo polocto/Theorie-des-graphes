@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <map>
 #include "components/sommet.hpp"
 
 class Graph{
@@ -12,12 +13,14 @@ class Graph{
         // delete graph and all of its sommets
         ~Graph();
 
+        void reset();
+
         // parse a graph through its width
-        void BFS(const int sommetId);
+        std::map<int,std::vector<const int>> BFS(const int sommetId);
         //parse a graph through its length
-        void DSF(const int sommetId);
+        std::map<int,std::vector<const int>> DSF(const int sommetId);
         //parse a graph through its length recusivly
-        void DSF_R(const int sommetId);
+        std::map<int,std::vector<const int>> DSF_R(const int id, std::vector<const int> pred);
         // affiche les composantes connexes d'un graph
         void composantesConnexes();
         // retourne vrai si le graph et non orienté et possède un cycle ou chaîne eulerienne

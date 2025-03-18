@@ -5,7 +5,9 @@ Sommet::Sommet(const int id): m_num(id){
     m_marked = false;
 };
 
-
+const int Sommet::getId(){
+    return m_num;
+}
 
 void Sommet::mark(){
     m_marked=true;
@@ -26,6 +28,15 @@ void Sommet::addNeighbour(Sommet* adj){
         throw std::runtime_error("The added adjacent sommet had allready been added.");
     }
     m_adjacents.push_back(adj);
+}
+
+std::vector<Sommet*> Sommet::unmarkedNeighbourg()const{
+    std::vector<Sommet*> list;
+    for(Sommet* s : m_adjacents){
+        if(!s->isMarked())
+            list.push_back(s);
+    }
+    return list;
 }
 
 

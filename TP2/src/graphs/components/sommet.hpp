@@ -22,6 +22,10 @@ class Sommet{
         // print the sommet override method
         friend std::ostream& operator<<(std::ostream& out, const Sommet& s);
 
+        const int getId();
+
+        std::vector<Sommet*> unmarkedNeighbourg()const;
+
     private:
         // identification number
         const int m_num;
